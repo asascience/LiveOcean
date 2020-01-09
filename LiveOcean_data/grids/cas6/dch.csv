@@ -1,0 +1,17 @@
+wet_dry,False
+analytical,False
+use_z_offset,True
+z_offset,-1.06
+do_cell_average,False
+t_dir,/Users/pm7/Documents/ptools_data/topo/
+t_list,"['srtm15/topo15.nc', 'cascadia/cascadia_gridded.nc', 'psdem/PS_183m.nc', 'ttp_patch/TTP_Regional_27m_patch.nc']"
+maskfiles,['cas5/grid_m05_r01_s02_x02.nc']
+z_land,0
+z_land_alt,0.1
+unmask_coast,False
+remove_islands,True
+fjord_cliff_edges,False
+use_min_depth,True
+min_depth,4
+nudging_edges,"['north', 'south', 'west']"
+nudging_days,"(3.0, 60.0)"

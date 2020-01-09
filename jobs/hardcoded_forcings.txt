@@ -1,0 +1,43 @@
+     VARNAME = /gscratch/macc/parker/LiveOcean_roms/LO_ROMS/ROMS/External/varinfo.dat
+/save/LiveOcean_roms/LO_ROMS/ROMS/External/varinfo.dat
+
+     NUDNAME == /gscratch/macc/parker/LiveOcean_data/grids/cas6/nudgcoef.nc
+/save/LiveOcean_data/   same grids/cas6/nudgcoef.nc
+
+     GRDNAME == /gscratch/macc/parker/LiveOcean_data/grids/cas6/grid.nc
+/save/LiveOcean_data/ same  grids/cas6/grid.nc
+
+     ININAME == /gscratch/macc/parker/LiveOcean_roms/output/cas6_v3_lo8b/f2019.11.05/ocean_his_0025.nc
+/com/liveocean/output/f2019.11.05/ocean_his_0025.nc
+
+     BRYNAME == /gscratch/macc/parker/LiveOcean_output/cas6_v3/f2019.11.06/ocn4/ocean_bry.nc
+/com/liveocean/forcing/f2019.11.06/ocn4/ocean_bry.nc
+
+     CLMNAME == /gscratch/macc/parker/LiveOcean_output/cas6_v3/f2019.11.06/ocn4/ocean_clm.nc
+/com/liveocean/forcing/f2019.11.06/ocn4/ocean_clm.nc
+
+     SSFNAME == /gscratch/macc/parker/LiveOcean_output/cas6_v3/f2019.11.06/riv2/rivers.nc
+/com/liveocean/forcing/f2019.11.06/riv2/rivers.nc
+
+     FRCNAME == /gscratch/macc/parker/LiveOcean_output/cas6_v3/f2019.11.06/tide2/tides.nc \
+  /gscratch/macc/parker/LiveOcean_output/cas6_v3/f2019.11.06/atm1/lwrad_down.nc \
+  /gscratch/macc/parker/LiveOcean_output/cas6_v3/f2019.11.06/atm1/Pair.nc \
+  /gscratch/macc/parker/LiveOcean_output/cas6_v3/f2019.11.06/atm1/Qair.nc \
+  /gscratch/macc/parker/LiveOcean_output/cas6_v3/f2019.11.06/atm1/rain.nc \
+  /gscratch/macc/parker/LiveOcean_output/cas6_v3/f2019.11.06/atm1/swrad.nc \
+  /gscratch/macc/parker/LiveOcean_output/cas6_v3/f2019.11.06/atm1/Tair.nc \
+  /gscratch/macc/parker/LiveOcean_output/cas6_v3/f2019.11.06/atm1/Uwind.nc \
+  /gscratch/macc/parker/LiveOcean_output/cas6_v3/f2019.11.06/atm1/Vwind.nc  
+/com/liveocean/forcing/f2019.11.06
+
+
+     RSTNAME == /gscratch/macc/parker/LiveOcean_roms/output/cas6_v3_lo8b/f2019.11.06/ocean_rst.nc
+     HISNAME == /gscratch/macc/parker/LiveOcean_roms/output/cas6_v3_lo8b/f2019.11.06/ocean_his.nc
+     AVGNAME == /gscratch/macc/parker/LiveOcean_roms/output/cas6_v3_lo8b/f2019.11.06/ocean_avg.nc
+     DIANAME == /gscratch/macc/parker/LiveOcean_roms/output/cas6_v3_lo8b/f2019.11.06/ocean_dia.nc
+/noscrub/com/liveocean/output/f2019.11.06
+
+Copy this file in from /save/LiveOcean_data
+
+     BPARNAM = /gscratch/macc/parker/LiveOcean_roms/output/cas6_v3_lo8b/f2019.11.06/npzd2o_Banas.in  
+/noscrub/com/liveocean/output/f2019.11.06
