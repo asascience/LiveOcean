@@ -6,6 +6,7 @@ export I_MPI_OFI_LIBRARY_INTERNAL=1
 module load gcc/6.5.0
 module load mpi/intel
 module load netcdf
+module load hdf5
 
 #export I_MPI_FABRICS=shm:ofi
 #export I_MPI_FABRICS=shm

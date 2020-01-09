@@ -55,8 +55,8 @@ GridsInLayer =  1
 ! shared-memory configurations used to determine tile horizontal range
 ! indices (Istr,Iend) and (Jstr,Jend), [1:Ngrids].
 
-      NtileI == 6
-      NtileJ == 6
+      NtileI == 1
+      NtileJ == 1
 
 !      NtileI == 9                               ! I-direction partition
 !      NtileJ == 8                               ! J-direction partition
@@ -91,7 +91,8 @@ GridsInLayer =  1
 ! Time-Stepping parameters.
 
       ! NTIMES == 6480  ! 72 hours
-      NTIMES == 540     ! 6 hours
+      ! NTIMES == 540     ! 6 hours
+      NTIMES == 90     ! 1 hours
       #NTIMES == 4320     ! 48 hours
           DT == 40.0d0
      NDTFAST == 20
