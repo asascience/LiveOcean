@@ -26,9 +26,8 @@ else
   for file in $datasets
   do
     key=LiveOcean/grids/$file
-    aws s3 cp s3://${bucket}/${key} .
-    # tar -xvf $file
-    # rm $file
+    [ -s $file ] && aws s3 cp s3://${bucket}/${key} .
+    tar -xvf $file
   done
 fi
 
