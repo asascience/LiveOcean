@@ -26,10 +26,10 @@ module load mpi/intel/2020.0.154
 module load netcdf/4.5
 
 export NETCDF_INCDIR="$NETCDF/include"
-export NETCDF_LIBDIR="$NETCDF/lib64"
+export NETCDF_LIBDIR="$NETCDF/lib"
 export NETCDF_LDFLAGS="-L$NETCDF_LIBDIR -lnetcdff -lnetcdf"
 
 cd $ROMSDIR
-gmake clean
+#gmake clean
 gmake -f $makefile
 mv $makedir/oceanM $EXECDIR/oceanM.$modconf

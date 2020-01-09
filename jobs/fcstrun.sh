@@ -10,7 +10,6 @@ module load netcdf
 #export I_MPI_FABRICS=shm:ofi
 #export I_MPI_FABRICS=shm
 #export I_MPI_FABRICS=verbs
-
 #export FI_PROVIDER=efa
 #export FI_PROVIDER=sockets
 #export FI_PROVIDER=tcp
@@ -18,13 +17,12 @@ module load netcdf
 #export I_MPI_WAIT_MODE=1   #default is 0
 
 export NODES=1
-export NPP=36
+export NPP=1
 export NPP=${NPP:-16}    # Number of processors
 
 export PPN=$((NPP/NODES))
-
 export HOSTFILE=$PWD/hosts
-export EXECDIR=/save/LiveOcean/exec
+export EXECDIR=/save/LiveOcean/LiveOcean_roms/exec
 
 #shm:tcp
 #shm:ofi
