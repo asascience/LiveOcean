@@ -91,8 +91,9 @@ GridsInLayer =  1
 ! Time-Stepping parameters.
 
       ! NTIMES == 6480  ! 72 hours
-      ! NTIMES == 540     ! 6 hours
-      NTIMES == 90     ! 1 hours
+      NTIMES == 540     ! 6 hours
+      ! NTIMES == 90     ! 1 hours
+      # NTIMES == 180     ! 2 hours
       #NTIMES == 4320     ! 48 hours
           DT == 40.0d0
      NDTFAST == 20

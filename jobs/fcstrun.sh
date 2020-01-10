@@ -8,12 +8,12 @@ module load mpi/intel
 module load netcdf
 module load hdf5
 
-#export I_MPI_FABRICS=shm:ofi
+export I_MPI_FABRICS=shm:ofi
 #export I_MPI_FABRICS=shm
 #export I_MPI_FABRICS=verbs
 #export FI_PROVIDER=efa
 #export FI_PROVIDER=sockets
-#export FI_PROVIDER=tcp
+export FI_PROVIDER=tcp
 #export FI_EFA_ENABLE_SHM_TRANSFER=1
 #export I_MPI_WAIT_MODE=1   #default is 0
 
