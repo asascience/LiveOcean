@@ -18,10 +18,10 @@ module load hdf5
 #export I_MPI_WAIT_MODE=1   #default is 0
 
 export NODES=1
-export NPP=1
-export NPP=${NPP:-16}    # Number of processors
+export NPROCS=4
+export NPROCS=${NPROCS:-16}    # Number of processors
 
-export PPN=$((NPP/NODES))
+export PPN=$((NPROCS/NODES))
 export HOSTFILE=$PWD/hosts
 export EXECDIR=/save/LiveOcean/LiveOcean_roms/exec
 
@@ -59,7 +59,7 @@ echo "Starting run at: $START"
 # THESE RUN!
 # mpirun -np $NPP -f $hostfile -iface ens5 $EXECDIR/oceanM.lo6biom liveocean.in > lofcst.log
 #mpirun -bind-to numa:4 -map-by core:72 -f $hostfile -iface ens5 $EXECDIR/oceanM.lo6biom liveocean.in > lofcst.log
-mpirun -np $NPP -ppn $PPN -f $HOSTFILE $EXECDIR/oceanM.lo6biom liveocean.in > lofcst.log
+mpirun -np $NPROCS -ppn $PPN -f $HOSTFILE $EXECDIR/oceanM.lo6biom liveocean.in > lofcst.log
 
 TEND=`date`
 echo "Run finished at: $TEND"
