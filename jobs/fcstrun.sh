@@ -67,8 +67,13 @@ START=`date`
 echo "Starting run at: $START"
 #export HOSTFILE=$PWD/hosts
 #mpirun -np $NPROCS -ppn $PPN -f $HOSTFILE $EXECDIR/oceanM.lo6biom liveocean.in > lofcst.log
+result=0
 mpirun $MPIOPTS $EXECDIR/$EXEC liveocean.in > lofcst.log
-result=$?
+
+error=`grep ERROR lofcst.log`
+if [ $error -eq 0 ] ; then
+  result=`grep exit_flag lofcst.log | awk -F: '{print $2}'`
+fi
 
 TEND=`date`
 echo "Run finished at: $TEND with result $result"
