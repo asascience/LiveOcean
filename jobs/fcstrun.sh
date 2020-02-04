@@ -70,7 +70,10 @@ echo "Starting run at: $START"
 result=0
 mpirun $MPIOPTS $EXECDIR/$EXEC liveocean.in > lofcst.log
 
-error=`grep ERROR lofcst.log`
+error=
+grep "ERROR" lofcst.log
+error=$?
+
 if [ $error -eq 0 ] ; then
   result=`grep exit_flag lofcst.log | awk -F: '{print $2}'`
 fi
