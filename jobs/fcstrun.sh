@@ -7,8 +7,10 @@ if [ $# -ne 1 ] ; then
   exit 1
 fi
 
+
 export CDATE=$1
 
+. /usr/share/Modules/init/bash
 module purge
 export I_MPI_OFI_LIBRARY_INTERNAL=1
 module load gcc/6.5.0
@@ -70,12 +72,20 @@ echo "Starting run at: $START"
 result=0
 mpirun $MPIOPTS $EXECDIR/$EXEC liveocean.in > lofcst.log
 
-error=
-grep "ERROR" lofcst.log
-error=$?
+# ROMS/TOMS: DONE
+# Check for success message
+grep "ROMS/TOMS: DONE" lofcst.log
+retval=$?
 
-if [ $error -eq 0 ] ; then
-  result=`grep exit_flag lofcst.log | awk -F: '{print $2}'`
+if [ $retval -ne 0 ] ; then  # No success message, return exit flag if it exists
+  result=1   # model did not complete
+  grep exit_flag lofcst.log
+  retval=$?
+  if [ $retval -eq 0 ] ; then # get the exit code from roms
+    result=`grep exit_flag lofcst.log | awk -F: '{print $2}'`
+  fi
+else
+  result=0
 fi
 
 TEND=`date`
