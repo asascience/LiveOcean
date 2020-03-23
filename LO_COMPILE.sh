@@ -21,7 +21,8 @@ export COMP_MPCC=mpigcc
 module purge
 module load gcc/6.5.0
 #module load mpi/intel/2019.5.281
-module load mpi/intel/2020.0.154
+#module load mpi/intel/2020.0.154
+module load mpi/intel/2020.0.166
 # module load netcdf/4.2
 module load netcdf/4.5
 

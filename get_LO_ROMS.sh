@@ -12,8 +12,8 @@ cd LiveOcean_roms
 if [[ ! -e LO_ROMS ]] ; then
 
   echo "cloning the LiveOcean ROMS git repository - private"
-  #git clone https://github.com/parkermac/LO_ROMS.git
-  git clone git@github.com:parkermac/LO_ROMS.git
+  git clone https://github.com/parkermac/LO_ROMS.git
+  #git clone git@github.com:parkermac/LO_ROMS.git
   if [ $? -eq 0 ]; then 
     cd LO_ROMS
     git checkout $version
