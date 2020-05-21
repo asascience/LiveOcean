@@ -18,7 +18,7 @@ module load mpi/intel
 module load netcdf
 module load hdf5
 
-export I_MPI_DEBUG=1 
+export I_MPI_DEBUG=0
 #export I_MPI_FABRICS=shm:ofi
 #export FI_PROVIDER=tcp
 
@@ -56,13 +56,27 @@ DD=${CDATE:6:2}
 export COMOUT=/com/liveocean/f${YYYY}.${MM}.${DD}
 mkdir -p $COMOUT
 
-# Don't overwrite if this is setup and launched from the python driver
-if [ ! -s $COMOUT/liveocean.in ] ; then
-  cp -p liveocean.in $COMOUT
-fi
-cp -p npzd2o_Banas.in $COMOUT
+export PTMP=/ptmp/liveocean/f${YYYY}.${MM}.${DD}
+mkdir -p $PTMP
 
-cd $COMOUT
+# Don't overwrite if this is setup and launched from the python driver
+#if [ ! -s $COMOUT/liveocean.in ] ; then
+#  cp -p liveocean.in $COMOUT
+#fi
+#if [ ! -s $COMOUT/npzd2o_Banas.in ] ; then
+#  cp -p npzd2o_Banas.in $COMOUT
+#fi
+
+# Copy the Forcing data to /ptmp also
+FRCDIR=/com/liveocean/forcing/f${YYYY}.${MM}.${DD}
+FRCPTMP=/ptmp/liveocean/forcing
+mkdir -p $FRCPTMP
+cp -Rp $FRCDIR $FRCPTMP
+
+# Copy the other ini files
+cp -p $COMOUT/* $PTMP
+cd $PTMP
+#cd $COMOUT
 
 # -f specifies the path to the host file listing the cluster nodes; alternatively, you can use the -hosts option to specify a comma-separated list of nodes; if hosts are not specified, the local node is used.
 START=`date`
@@ -87,6 +101,9 @@ if [ $retval -ne 0 ] ; then  # No success message, return exit flag if it exists
 else
   result=0
 fi
+
+# This is done in a task, after cluster shutdown
+#cp -pf $PTMP/* $COMOUT
 
 TEND=`date`
 echo "Run finished at: $TEND with result $result"
