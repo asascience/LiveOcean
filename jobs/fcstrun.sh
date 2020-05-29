@@ -63,9 +63,10 @@ mkdir -p $PTMP
 #if [ ! -s $COMOUT/liveocean.in ] ; then
 #  cp -p liveocean.in $COMOUT
 #fi
-#if [ ! -s $COMOUT/npzd2o_Banas.in ] ; then
-#  cp -p npzd2o_Banas.in $COMOUT
-#fi
+if [ ! -s $COMOUT/npzd2o_Banas.in ] ; then
+  cp -p npzd2o_Banas.in $COMOUT
+fi
+
 
 # Copy the Forcing data to /ptmp also
 FRCDIR=/com/liveocean/forcing/f${YYYY}.${MM}.${DD}
@@ -74,7 +75,7 @@ mkdir -p $FRCPTMP
 cp -Rp $FRCDIR $FRCPTMP
 
 # Copy the other ini files
-cp -p $COMOUT/* $PTMP
+cp -pf $COMOUT/* $PTMP
 cd $PTMP
 #cd $COMOUT
 
