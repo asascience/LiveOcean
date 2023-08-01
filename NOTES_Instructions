@@ -1,28 +1,39 @@
-Patrick,
+From May 4, 2023
 
-Thanks for the phone call yesterday.  So, to get things going, I have added you as a collaborator on the LO_ROMS repo in https://github.com/parkermac.  This is our modified version of ROMS.  Please do not distribute this version of the code.
+Tiffany,
 
-You can find the makefiles by cloning https://github.com/parkermac/makefiles and what you need to compile is in lo6biom.
+Here is your to-go order. It will take a pro like Patrick Tripp to do this, I expect.
 
-David can set you up with an account on boiler.  Then the files required to run a single three day forecast are in a folder like:
-/data1/parker/LiveOcean_output/cas6_v3/f2019.11.06
+From my github repo https://github.com/parkermac clone LO, LO_roms_user, and LO_roms_source_alt. They each have README's which should be helpful, although they are specific to people working in my ecosystem of machines.
 
-The other thing you would need would be the grid file, in: /fjdata1/parker/LiveOcean_data/grids/cas6
+Using svn (directions in the README for LO_roms_user) get the ROMS source code into LO_roms_source
 
-as well as hour 24 of the previous day's forecast for an initial condition:
-/data1/parker/LiveOcean_roms/output/cas6_v3_lo8b/f2019.11.05/ocean_his_0025.nc
+Compile x2b in LO_roms_user
 
-you will also need two .in files which are liveocean.in and npzd2o_Banas.in in npzd2o_Banas in /data1/parker/LiveOcean_roms/output/cas6_v3_lo8b/f2019.11.06
-note that a lot of directory paths are hard-wired in these files.
+Get forcing for one day from my machine apogee in /dat1/parker/LO_output/forcing/cas6/f2017.06.01 (once we know who is doing this we can set them up with an account).
 
-The driver script is is driver_roms_mox.sh in /data1/parker/LiveOcean/driver (note that you can get the full LiveOcean repo, including this driver, from my GitHub).
+Modify LO/driver/driver_roms_3.py to work in your environment (this is really the only thing you need LO for - no need to go through all the LO/README installation steps)
 
-Lastly, you should start by reading this:
-http://faculty.washington.edu/pmacc/LO/architecture.html
-which describes the general LiveOcean code organization.  This may be a bit out of date, but not much.  I'll try to look over it soon.
+Get ROMS output from apogee from the previous day /dat1/parker/LO_roms/cas6_traps2_x2b/f2017.05.31, at least ocean_rst.nc.
 
-Let me know if you have any questions.
+Then see if you can run one day (2017.06.01), using "perfect" start type and compare to my run for that day.
 
-Cheers,
+I expect many questions,
 
 Parker
+
+Notes:
+
+It took about 10-15 to tgz the data and another 12 minutes do download
+the output, and :22 to download the forcing.
+
+
+python3 driver_roms3.py -g cas6 -t traps2 -x x2b -0 2017.06.01-1
+2017.06.01 -np 200 -N 40 -s perfect < /dev/null > patrick.log &
+
+The np means you are telling it to use 200 cores, and N tells it there
+are 40 cores on a node. These are used when the driver calls a python
+program that fills in some fields in the klone_batch.sh file. Setting s
+to perfect means it uses perfect restart (need to have compiled ROMS
+with that cpp flag), and there should be an ocean_rst.nc file in the
+f2017.05.31 folder you have.

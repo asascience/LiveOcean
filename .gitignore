@@ -2,3 +2,7 @@ LiveOcean_roms/LO_ROMS
 LiveOcean_data/grids/*
 jobs/hosts
 exec
+LO
+LO_roms_user
+LO_roms_source
+LO_roms_source_alt

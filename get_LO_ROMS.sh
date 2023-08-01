@@ -1,29 +1,49 @@
 #!/bin/bash
 
-# Current version info:
-# commit d7dcffd2a68ca572c8bf0dd192624ed8cdc780e9
-# Author: parkermac <p.maccready@gmail.com>
-# Date:   Mon Jan 1 11:52:53 2018 -0800
+TOPDIR=${PWD}
 
-version=d7dcffd2a68ca572c8bf0dd192624ed8cdc780e9
+# LO:
+# commit b615de741f92ac70d77ff6062e12d556bb36738c
+# Date:   Thu Jun 8 12:28:59 2023 -0700
+LOCOMMIT=b615de741f92ac70d77ff6062e12d556bb36738c
 
-cd LiveOcean_roms
+# LO_roms_user:
+# commit a54c32a2302c32d724f97c7687042890116b4600
+# Date:   Sun May 14 15:21:03 2023 -0700
+LORUCOMMIT=a54c32a2302c32d724f97c7687042890116b4600
 
-if [[ ! -e LO_ROMS ]] ; then
+# LO_roms_source_alt
+# commit 4c38c448ba1328bc221430b5963dfa71a6dcc23b
+# Date:   Tue May 2 08:03:29 2023 -0700
+LORSACOMMIT=4c38c448ba1328bc221430b5963dfa71a6dcc23b
 
-  echo "cloning the LiveOcean ROMS git repository - private"
-  git clone https://github.com/parkermac/LO_ROMS.git
-  #git clone git@github.com:parkermac/LO_ROMS.git
-  if [ $? -eq 0 ]; then 
-    cd LO_ROMS
-    git checkout $version
-    echo "LO_ROMS has been checked out... version: $version"
-  else 
-    echo "Unable to clone LO_ROMS repository"
-    exit -1
-  fi
+# ROMS
+# Revision: 1170
+# Last Changed Rev: 1170
+# Last Changed Date: 2023-06-04 20:11:16 +0000 (Sun, 04 Jun 2023)
+ROMSVERSION=1170
 
-else
-  echo "LO_ROMS exists"
-fi
+echo "cloning the LiveOcean ROMS git repositories"
+
+git clone https://github.com/parkermac/LO.git
+cd LO
+git checkout $LOCOMMIT
+cd $TOPDIR
+
+git clone https://github.com/parkermac/LO_roms_user.git
+cd LO_roms_user
+git checkout $LORUCOMMIT
+cd $TOPDIR
+
+git clone https://github.com/parkermac/LO_roms_source_alt.git
+cd LO_roms_source_alt
+git checkout $LORSACOMMIT
+cd $TOPDIR
+
+echo "checking out ROMS source from myroms.org/svn repo"
+
+read -p "Enter your myroms.org username: "
+ROMSUSER=$REPLY
+
+svn checkout --username $ROMSUSER https://www.myroms.org/svn/src/trunk@$ROMSVERSION ./LO_roms_source
 

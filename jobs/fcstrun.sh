@@ -2,23 +2,21 @@
 set -x
 ulimit -s unlimited
 
-if [ $# -ne 1 ] ; then
-  echo "Usage: $0 YYYYMMDD"
+if [ $# -ne 2 ] ; then
+  echo "Usage: $0 YYYYMMDD COMROT"
   exit 1
 fi
 
-
 export CDATE=$1
+export COMROT=$2
 
 . /usr/share/Modules/init/bash
 module purge
-export I_MPI_OFI_LIBRARY_INTERNAL=1
-module load gcc/6.5.0
-module load mpi/intel
-module load netcdf
-module load hdf5
+. load_modules.sh
 
-export I_MPI_DEBUG=0
+#export I_MPI_OFI_LIBRARY_INTERNAL=1
+
+export I_MPI_DEBUG=1
 #export I_MPI_FABRICS=shm:ofi
 #export FI_PROVIDER=tcp
 
@@ -46,38 +44,43 @@ export PPN=${PPN:-$((NPROCS/NODES))}
 
 MPIOPTS=${MPIOPTS:-"-nolocal -launcher ssh -hosts $HOSTS -np $NPROCS -ppn $PPN"}
 
-EXECDIR=${HOMEnos}/LiveOcean_roms/exec
-EXEC=oceanM.lo6biom
+EXECDIR=${HOMEnos}/LO_roms_user/x2b
+EXEC=romsM
 
 YYYY=${CDATE:0:4}
 MM=${CDATE:4:2}
 DD=${CDATE:6:2}
 
-export COMOUT=/com/liveocean/f${YYYY}.${MM}.${DD}
+export COMOUT=${COMROT}/LO_roms/cas6_traps2_x2b/f${YYYY}.${MM}.${DD}
 mkdir -p $COMOUT
 
-export PTMP=/ptmp/liveocean/f${YYYY}.${MM}.${DD}
-mkdir -p $PTMP
+#export PTMP=/ptmp/liveocean/f${YYYY}.${MM}.${DD}
+#mkdir -p $PTMP
 
 # Don't overwrite if this is setup and launched from the python driver
 #if [ ! -s $COMOUT/liveocean.in ] ; then
 #  cp -p liveocean.in $COMOUT
 #fi
-if [ ! -s $COMOUT/npzd2o_Banas.in ] ; then
-  cp -p npzd2o_Banas.in $COMOUT
+
+#if [ ! -s $COMOUT/npzd2o_Banas.in ] ; then
+#  cp -p npzd2o_Banas.in $COMOUT
+#fi
+
+if [ ! -s $COMOUT/bio_Banas.in ] ; then
+  cp -p bio_Banas.in $COMOUT
 fi
 
 
 # Copy the Forcing data to /ptmp also
-FRCDIR=/com/liveocean/forcing/f${YYYY}.${MM}.${DD}
-FRCPTMP=/ptmp/liveocean/forcing
-mkdir -p $FRCPTMP
-cp -Rp $FRCDIR $FRCPTMP
+#FRCDIR=/com/liveocean/forcing/f${YYYY}.${MM}.${DD}
+#FRCPTMP=/ptmp/liveocean/forcing
+#mkdir -p $FRCPTMP
+#cp -Rp $FRCDIR $FRCPTMP
 
 # Copy the other ini files
-cp -pf $COMOUT/* $PTMP
-cd $PTMP
-#cd $COMOUT
+#cp -pf $COMOUT/* $PTMP
+#cd $PTMP
+cd $COMOUT
 
 # -f specifies the path to the host file listing the cluster nodes; alternatively, you can use the -hosts option to specify a comma-separated list of nodes; if hosts are not specified, the local node is used.
 START=`date`
