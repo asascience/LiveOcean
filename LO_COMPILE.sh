@@ -7,8 +7,7 @@ BUILDDIR="${TOPDIR}/LO_roms_user/x2b"
 BUILDSCRIPT=build_roms.sh
 BUILDOPTS='-j 2'
 
-export MY_ROOT_DIR=/save/ioos/patrick.tripp/LiveOcean
-
+# BUILDOPTS
 #    -j [N]      Compile in parallel using N CPUs                       :::
 #                  omit argument for all available CPUs                 :::
 #                                                                       :::
@@ -18,6 +17,10 @@ export MY_ROOT_DIR=/save/ioos/patrick.tripp/LiveOcean
 #                                                                       :::
 #    -noclean    Do not clean already compiled objects 
 
+export MY_ROOT_DIR=/save/ioos/patrick.tripp/LiveOcean
+export MY_ROMS_SRC=${MY_ROOT_DIR}/LO_roms_source
+cp -p ./Compilers/x2b/Linux-ifort.mk $MY_ROMS_SRC
+
 export COMP_F=ifort
 export COMP_F_MPI90=mpif90
 export COMP_F_MPI=mpif90
@@ -26,11 +29,17 @@ export COMP_CC=icc
 export COMP_CPP=cpp
 export COMP_MPCC='mpicc -fc=icc'
 
-TARGET=${TARGET:-'skylake_avx512'}
+# Compiler target machine
+TARGETMX=${TARGETMX:-'skylake_avx512'}
+TARGETMX='haswell'
+
+export 
 
 module purge
 
-if [[ $TARGET == "skylake_avx512" ]]; then
+if [[ $TARGETX == "skylake_avx512" ]]; then
+
+  # don't set NO_AVX512 - make uses ifdef - default is to use
   module load gcc-8.5.0-gcc-4.8.5-iakdnjp
   module load intel-oneapi-compilers-2021.3.0-gcc-8.5.0-gp3iweu
   module load intel-oneapi-mpi-2021.3.0-intel-2021.3.0-bixgqcx
@@ -40,12 +49,23 @@ if [[ $TARGET == "skylake_avx512" ]]; then
   module load netcdf-fortran-4.5.4-intel-2021.3.0-4lyzqsf
   module load hdf5-1.10.7-intel-2021.3.0-btc4zhc
 
-  # Tells build system which compiler options to use
-  export FORT=ifort
-
-elif [[ $TARGET == "x86_64" ]]; then
-  export FORT=ifort-x86_64
+elif [[ $TARGETMX == "haswell" ]]; then
+  export NO_AVX512=on
+  module avail
+  exit
+elif [[ $TARGETMX == "x86_64" ]]; then
+  # Use the x86_64 build targets
+  export NO_AVX512=on
+  module avail
+  exit
+else
+  echo "Target platform not supported"
+  exit
 fi
+
+fi
+
+exit
 
 NETCDF=`nf-config --prefix`
 export NETCDF_INCDIR=`nf-config --includedir`
