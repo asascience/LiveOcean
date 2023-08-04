@@ -19,6 +19,8 @@ BUILDOPTS='-j 2'
 
 export MY_ROOT_DIR=/save/ioos/patrick.tripp/LiveOcean
 export MY_ROMS_SRC=${MY_ROOT_DIR}/LO_roms_source
+
+# Using a different makefile for Sandbox
 cp -p ./Compilers/x2b/Linux-ifort.mk $MY_ROMS_SRC
 
 export COMP_F=ifort
@@ -31,9 +33,7 @@ export COMP_MPCC='mpicc -fc=icc'
 
 # Compiler target machine
 TARGETMX=${TARGETMX:-'skylake_avx512'}
-TARGETMX='haswell'
-
-export 
+# TARGETMX='haswell'
 
 module purge
 
