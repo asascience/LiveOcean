@@ -52,17 +52,17 @@ if [[ $TARGETX == "skylake_avx512" ]]; then
 elif [[ $TARGETMX == "haswell" ]]; then
   export NO_AVX512=on
   module avail
+  echo "target haswell not supported yet"
   exit
 elif [[ $TARGETMX == "x86_64" ]]; then
   # Use the x86_64 build targets
   export NO_AVX512=on
   module avail
+  echo "target x86_64 not supported yet"
   exit
 else
   echo "Target platform not supported"
   exit
-fi
-
 fi
 
 exit
