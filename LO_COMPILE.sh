@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -x
+set -x
 
 TOPDIR=$PWD
 
@@ -21,7 +21,7 @@ export MY_ROOT_DIR=/save/ioos/patrick.tripp/LiveOcean
 export MY_ROMS_SRC=${MY_ROOT_DIR}/LO_roms_source
 
 # Using a different makefile for Sandbox
-cp -p ./Compilers/x2b/Linux-ifort.mk $MY_ROMS_SRC
+cp -p ./Compilers/Linux-ifort.mk $MY_ROMS_SRC
 
 export COMP_F=ifort
 export COMP_F_MPI90=mpif90
@@ -37,7 +37,7 @@ TARGETMX=${TARGETMX:-'skylake_avx512'}
 
 module purge
 
-if [[ $TARGETX == "skylake_avx512" ]]; then
+if [[ $TARGETMX == "skylake_avx512" ]]; then
 
   # don't set NO_AVX512 - make uses ifdef - default is to use
   module load gcc-8.5.0-gcc-4.8.5-iakdnjp
@@ -64,8 +64,6 @@ else
   echo "Target platform not supported"
   exit
 fi
-
-exit
 
 NETCDF=`nf-config --prefix`
 export NETCDF_INCDIR=`nf-config --includedir`
