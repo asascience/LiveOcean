@@ -7,10 +7,15 @@ TOPDIR=${PWD}
 # Date:   Thu Jun 8 12:28:59 2023 -0700
 LOCOMMIT=b615de741f92ac70d77ff6062e12d556bb36738c
 
-# LO_roms_user:
+# Parker's LO_roms_user:
 # commit a54c32a2302c32d724f97c7687042890116b4600
 # Date:   Sun May 14 15:21:03 2023 -0700
-LORUCOMMIT=a54c32a2302c32d724f97c7687042890116b4600
+# LORUCOMMIT=a54c32a2302c32d724f97c7687042890116b4600
+
+# RPS fork
+# commit 
+# Date:
+# LORUCOMMIT=
 
 # LO_roms_source_alt
 # commit 4c38c448ba1328bc221430b5963dfa71a6dcc23b
@@ -30,9 +35,16 @@ cd LO
 git checkout $LOCOMMIT
 cd $TOPDIR
 
-git clone https://github.com/parkermac/LO_roms_user.git
-cd LO_roms_user
-git checkout $LORUCOMMIT
+# Parker's main
+# git clone https://github.com/parkermac/LO_roms_user.git
+# cd LO_roms_user
+# git checkout $LORUCOMMIT
+# cd $TOPDIR
+
+# RPS fork with build fix
+git clone https://github.com/asascience/LO_roms_user.git
+cd LO_roms_user/
+git checkout ioos-cloud
 cd $TOPDIR
 
 git clone https://github.com/parkermac/LO_roms_source_alt.git

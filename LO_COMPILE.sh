@@ -1,10 +1,11 @@
 #!/bin/bash
-set -x
+# set -x
 
 TOPDIR=$PWD
 
 BUILDDIR="${TOPDIR}/LO_roms_user/x2b"
 BUILDSCRIPT=build_roms.sh
+#BUILDOPTS='-j 2 -noclean'
 BUILDOPTS='-j 2'
 
 # BUILDOPTS
@@ -17,11 +18,11 @@ BUILDOPTS='-j 2'
 #                                                                       :::
 #    -noclean    Do not clean already compiled objects 
 
-export MY_ROOT_DIR=/save/ioos/patrick.tripp/LiveOcean
+export MY_ROOT_DIR=/save/ioos/$USER/LiveOcean
 export MY_ROMS_SRC=${MY_ROOT_DIR}/LO_roms_source
 
 # Using a different makefile for Sandbox
-cp -p ./Compilers/Linux-ifort.mk $MY_ROMS_SRC
+cp -p ./Compilers/Linux-ifort.mk $MY_ROMS_SRC/Compilers
 
 export COMP_F=ifort
 export COMP_F_MPI90=mpif90
