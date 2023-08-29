@@ -15,8 +15,6 @@ datasets='
 
 bucket="ioos-sandbox-use2/public/LiveOcean"
 
-USER='test'
-
 # Default behavior is to retrieve (no args)
 cd /com/$USER
 
