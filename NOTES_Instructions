@@ -19,14 +19,14 @@ Get ROMS output from apogee from the previous day /dat1/parker/LO_roms/cas6_trap
 Then see if you can run one day (2017.06.01), using "perfect" start type and compare to my run for that day.
 
 I expect many questions,
-
 Parker
 
-Notes:
+Patrick's Notes:
 
 It took about 10-15 to tgz the data and another 12 minutes do download
 the output, and :22 to download the forcing.
 
+From Paker:
 
 python3 driver_roms3.py -g cas6 -t traps2 -x x2b -0 2017.06.01-1
 2017.06.01 -np 200 -N 40 -s perfect < /dev/null > patrick.log &
@@ -37,3 +37,4 @@ program that fills in some fields in the klone_batch.sh file. Setting s
 to perfect means it uses perfect restart (need to have compiled ROMS
 with that cpp flag), and there should be an ocean_rst.nc file in the
 f2017.05.31 folder you have.
+
