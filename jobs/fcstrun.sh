@@ -11,12 +11,12 @@ export CDATE=$1
 export COMROT=$2
 
 . /usr/share/Modules/init/bash
-module purge
-. load_modules.sh
+. ../modulefiles/load_modules.sh
+
 
 #export I_MPI_OFI_LIBRARY_INTERNAL=1
 
-export I_MPI_DEBUG=1
+export I_MPI_DEBUG=0
 #export I_MPI_FABRICS=shm:ofi
 #export FI_PROVIDER=tcp
 
@@ -70,6 +70,7 @@ if [ ! -s $COMOUT/bio_Banas.in ] ; then
   cp -p bio_Banas.in $COMOUT
 fi
 
+cp -p ../LO_roms_source_alt/varinfo/varinfo.yaml $COMOUT
 
 # Copy the Forcing data to /ptmp also
 #FRCDIR=/com/liveocean/forcing/f${YYYY}.${MM}.${DD}
