@@ -37,7 +37,7 @@ TARGETMX=${TARGETMX:-'x86_64'}
 # TARGETMX=${TARGETMX:-'skylake_avx512'}
 # TARGETMX='haswell'
 
-. modules/load_modules.sh
+. modulefiles/load_modules.sh
 
 NETCDF=`nf-config --prefix`
 export NETCDF_INCDIR=`nf-config --includedir`
