@@ -18,6 +18,8 @@ export COMROT=$2
 
 export I_MPI_DEBUG=1
 export I_MPI_HYDRA_DEBUG=1
+export I_MPI_JOB_STARTUP_TIMEOUT=60
+#export I_MPI_HYDRA_IFACE="ens5"
 
 #export I_MPI_FABRICS=shm:ofi
 #export FI_PROVIDER=tcp
