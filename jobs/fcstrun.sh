@@ -13,29 +13,22 @@ export COMROT=$2
 . /usr/share/Modules/init/bash
 . ../modulefiles/load_modules.sh
 
-
 export I_MPI_OFI_LIBRARY_INTERNAL=0
 export I_MPI_OFI_PROVIDER=efa
-export I_MPI_DEBUG=6
-export I_MPI_HYDRA_DEBUG=1
+export I_MPI_DEBUG=0
+export I_MPI_HYDRA_DEBUG=0
 export I_MPI_JOB_STARTUP_TIMEOUT=60
 
 #export I_MPI_HYDRA_IFACE="ens5"
-
 #export I_MPI_FABRICS=shm:ofi
 #export FI_PROVIDER=tcp
-
 #export I_MPI_FABRICS=shm
 #export I_MPI_FABRICS=verbs
 #export FI_PROVIDER=efa
 #export FI_PROVIDER=sockets
 #export FI_EFA_ENABLE_SHM_TRANSFER=1
 #export I_MPI_WAIT_MODE=1   #default is 0
-#export I_MPI_HYDRA_ENV=all
-#export I_MPI_FABRIC=shm:ofi
-#shm:ofi
 #export I_MPI_HYDRA_BOOTSTRAP=ssh
-
 # -iface ens5
 # -launcher
 
@@ -67,10 +60,6 @@ mkdir -p $COMOUT
 #  cp -p liveocean.in $COMOUT
 #fi
 
-#if [ ! -s $COMOUT/npzd2o_Banas.in ] ; then
-#  cp -p npzd2o_Banas.in $COMOUT
-#fi
-
 if [ ! -s $COMOUT/bio_Banas.in ] ; then
   cp -p bio_Banas.in $COMOUT
 fi
@@ -88,12 +77,8 @@ cp -p ../LO_roms_source_alt/varinfo/varinfo.yaml $COMOUT
 #cd $PTMP
 cd $COMOUT
 
-# -f specifies the path to the host file listing the cluster nodes; alternatively, you can use the -hosts option to specify a comma-separated list of nodes; if hosts are not specified, the local node is used.
 START=`date`
 echo "Starting run at: $START"
-#export HOSTFILE=$PWD/hosts
-#mpirun -np $NPROCS -ppn $PPN -f $HOSTFILE $EXECDIR/oceanM.lo6biom liveocean.in > lofcst.log
-result=0
 mpirun $MPIOPTS $EXECDIR/$EXEC liveocean.in > lofcst.log
 
 # ROMS/TOMS: DONE
@@ -111,9 +96,6 @@ if [ $retval -ne 0 ] ; then  # No success message, return exit flag if it exists
 else
   result=0
 fi
-
-# This is done in a task, after cluster shutdown
-#cp -pf $PTMP/* $COMOUT
 
 TEND=`date`
 echo "Run finished at: $TEND with result $result"
