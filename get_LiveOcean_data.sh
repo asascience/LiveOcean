@@ -9,6 +9,7 @@
 
 datasets='
   LO_data.grids.cas7.v1.3.tgz
+  LO_roms.f2012.10.07.restart.cas7.tgz
 '
 #  LO_output.f2017.06.01.forcing.v1.3.tgz
 #  LO_roms.f2017.05.31.restart.v1.3.tgz
