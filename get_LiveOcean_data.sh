@@ -8,10 +8,10 @@
 # restart file and forecast output goes in: LO_roms
 
 datasets='
-  LO_data.grids.cas6.v1.3.tgz
-  LO_output.f2017.06.01.forcing.v1.3.tgz
-  LO_roms.f2017.05.31.restart.v1.3.tgz
+  LO_data.grids.cas7.v1.3.tgz
 '
+#  LO_output.f2017.06.01.forcing.v1.3.tgz
+#  LO_roms.f2017.05.31.restart.v1.3.tgz
 
 bucket="ioos-sandbox-use2/public/LiveOcean"
 

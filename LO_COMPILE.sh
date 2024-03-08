@@ -3,7 +3,7 @@
 
 TOPDIR=$PWD
 
-BUILDDIR="${TOPDIR}/LO_roms_user/x2b"
+BUILDDIR="${TOPDIR}/LO_roms_user/x4b"
 BUILDSCRIPT=build_roms.sh
 #BUILDOPTS='-j 2 -noclean'
 BUILDOPTS='-j 2'
@@ -19,7 +19,7 @@ BUILDOPTS='-j 2'
 #    -noclean    Do not clean already compiled objects 
 
 export MY_ROOT_DIR=/save/$USER/LiveOcean
-export MY_ROMS_SRC=${MY_ROOT_DIR}/LO_roms_source
+export MY_ROMS_SRC=${MY_ROOT_DIR}/LO_roms_source_git
 
 # Using a different makefile for Sandbox
 cp -p ./Compilers/Linux-ifort.mk $MY_ROMS_SRC/Compilers
@@ -42,6 +42,7 @@ TARGETMX=${TARGETMX:-'x86_64'}
 NETCDF=`nf-config --prefix`
 export NETCDF_INCDIR=`nf-config --includedir`
 export NETCDF_LIBDIR="${NETCDF}/lib"
+
 cd $BUILDDIR
 ./$BUILDSCRIPT $BUILDOPTS
 

@@ -1,11 +1,13 @@
 #!/bin/bash
-set -x
+#set -x
 ulimit -s unlimited
 
 if [ $# -ne 2 ] ; then
   echo "Usage: $0 YYYYMMDD COMROT"
   exit 1
 fi
+
+# TODO - make the experiment a parameter
 
 export CDATE=$1
 export COMROT=$2
@@ -16,14 +18,13 @@ export COMROT=$2
 
 #export I_MPI_OFI_LIBRARY_INTERNAL=1
 
-export I_MPI_DEBUG=5
-export I_MPI_HYDRA_DEBUG=1
-export I_MPI_JOB_STARTUP_TIMEOUT=60
+export I_MPI_DEBUG=0
+export I_MPI_HYDRA_DEBUG=0
+export I_MPI_JOB_STARTUP_TIMEOUT=30
 #export I_MPI_HYDRA_IFACE="ens5"
 
 #export I_MPI_FABRICS=shm:ofi
 #export FI_PROVIDER=tcp
-
 #export I_MPI_FABRICS=shm
 #export I_MPI_FABRICS=verbs
 #export FI_PROVIDER=efa
@@ -32,7 +33,6 @@ export I_MPI_JOB_STARTUP_TIMEOUT=60
 #export I_MPI_WAIT_MODE=1   #default is 0
 #export I_MPI_HYDRA_ENV=all
 #export I_MPI_FABRIC=shm:ofi
-#shm:ofi
 #export I_MPI_HYDRA_BOOTSTRAP=ssh
 
 # -iface ens5
@@ -48,14 +48,15 @@ export PPN=${PPN:-$((NPROCS/NODES))}
 
 MPIOPTS=${MPIOPTS:-"-nolocal -launcher ssh -hosts $HOSTS -np $NPROCS -ppn $PPN"}
 
-EXECDIR=${HOMEnos}/LO_roms_user/x2b
+EXECDIR=${HOMEnos}/LO_roms_user/x4b
 EXEC=romsM
 
 YYYY=${CDATE:0:4}
 MM=${CDATE:4:2}
 DD=${CDATE:6:2}
 
-export COMOUT=${COMROT}/LO_roms/cas6_traps2_x2b/f${YYYY}.${MM}.${DD}
+#export COMOUT=${COMROT}/LO_roms/cas6_traps2_x2b/f${YYYY}.${MM}.${DD}
+export COMOUT=${COMROT}/LO_roms/cas7_t0_x4b/f${YYYY}.${MM}.${DD}
 mkdir -p $COMOUT
 
 #export PTMP=/ptmp/liveocean/f${YYYY}.${MM}.${DD}
@@ -74,7 +75,7 @@ if [ ! -s $COMOUT/bio_Banas.in ] ; then
   cp -p bio_Banas.in $COMOUT
 fi
 
-cp -p ../LO_roms_source_alt/varinfo/varinfo.yaml $COMOUT
+#cp -p ../LO_roms_source_alt/varinfo/varinfo.yaml $COMOUT
 
 # Copy the Forcing data to /ptmp also
 #FRCDIR=/com/liveocean/forcing/f${YYYY}.${MM}.${DD}
