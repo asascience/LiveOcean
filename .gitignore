@@ -3,6 +3,10 @@ LiveOcean_data/grids/*
 jobs/hosts
 exec
 LO/
+LO_data/
 LO_roms_user/
 LO_roms_source/
 LO_roms_source_alt/
+LO_roms_source_git/
+LO_roms_source_svn/
+LO_user/__pycache__/
