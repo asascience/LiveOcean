@@ -1,48 +1,35 @@
 #!/bin/bash
-#set -x
 ulimit -s unlimited
 
 if [ $# -ne 2 ] ; then
-  echo "Usage: $0 YYYYMMDD COMROT"
+  echo "Usage: $0 YYYYMMDD COMOUT"
   exit 1
 fi
-
-# TODO - make the experiment a parameter
-
-export CDATE=$1
-export COMROT=$2
 
 . /usr/share/Modules/init/bash
 . ../modulefiles/load_modules.sh
 
+#set -x
+
+export CDATE=$1
+export COMOUT=$2
+
+echo "DEBUG2: in $0"
+echo "COMOUT: $COMOUT"
 
 #export I_MPI_OFI_LIBRARY_INTERNAL=1
-
 export I_MPI_DEBUG=0
 export I_MPI_HYDRA_DEBUG=0
 export I_MPI_JOB_STARTUP_TIMEOUT=30
-#export I_MPI_HYDRA_IFACE="ens5"
-
-#export I_MPI_FABRICS=shm:ofi
-#export FI_PROVIDER=tcp
-#export I_MPI_FABRICS=shm
-#export I_MPI_FABRICS=verbs
 #export FI_PROVIDER=efa
-#export FI_PROVIDER=sockets
-#export FI_EFA_ENABLE_SHM_TRANSFER=1
 #export I_MPI_WAIT_MODE=1   #default is 0
-#export I_MPI_HYDRA_ENV=all
-#export I_MPI_FABRIC=shm:ofi
-#export I_MPI_HYDRA_BOOTSTRAP=ssh
-
-# -iface ens5
-# -launcher
 
 export HOMEnos=$(dirname $PWD)
 echo "HOMEnos is $HOMEnos"
 
 HOSTS=${HOSTS:-'localhost'}
 export NPROCS=${NPROCS:-16}    # Number of processors
+
 NODES=${NODES:-1}
 export PPN=${PPN:-$((NPROCS/NODES))}
 
@@ -55,45 +42,32 @@ YYYY=${CDATE:0:4}
 MM=${CDATE:4:2}
 DD=${CDATE:6:2}
 
-#export COMOUT=${COMROT}/LO_roms/cas6_traps2_x2b/f${YYYY}.${MM}.${DD}
-export COMOUT=${COMROT}/LO_roms/cas7_t0_x4b/f${YYYY}.${MM}.${DD}
+echo "COMOUT: $COMOUT"
 mkdir -p $COMOUT
-
-#export PTMP=/ptmp/liveocean/f${YYYY}.${MM}.${DD}
-#mkdir -p $PTMP
-
-# Don't overwrite if this is setup and launched from the python driver
-#if [ ! -s $COMOUT/liveocean.in ] ; then
-#  cp -p liveocean.in $COMOUT
-#fi
-
-#if [ ! -s $COMOUT/npzd2o_Banas.in ] ; then
-#  cp -p npzd2o_Banas.in $COMOUT
-#fi
 
 if [ ! -s $COMOUT/bio_Banas.in ] ; then
   cp -p bio_Banas.in $COMOUT
 fi
 
-#cp -p ../LO_roms_source_alt/varinfo/varinfo.yaml $COMOUT
-
+# For /ptmp when using FSx Lustre
+#export PTMP=/ptmp/liveocean/f${YYYY}.${MM}.${DD}
+#mkdir -p $PTMP
 # Copy the Forcing data to /ptmp also
 #FRCDIR=/com/liveocean/forcing/f${YYYY}.${MM}.${DD}
 #FRCPTMP=/ptmp/liveocean/forcing
 #mkdir -p $FRCPTMP
 #cp -Rp $FRCDIR $FRCPTMP
-
 # Copy the other ini files
 #cp -pf $COMOUT/* $PTMP
 #cd $PTMP
+
 cd $COMOUT
 
-# -f specifies the path to the host file listing the cluster nodes; alternatively, you can use the -hosts option to specify a comma-separated list of nodes; if hosts are not specified, the local node is used.
 START=`date`
 echo "Starting run at: $START"
-#export HOSTFILE=$PWD/hosts
-#mpirun -np $NPROCS -ppn $PPN -f $HOSTFILE $EXECDIR/oceanM.lo6biom liveocean.in > lofcst.log
+
 result=0
+echo "Calling mpirun ....from $0"
 mpirun $MPIOPTS $EXECDIR/$EXEC liveocean.in > lofcst.log
 
 # ROMS/TOMS: DONE
