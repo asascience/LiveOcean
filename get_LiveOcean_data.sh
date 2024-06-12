@@ -10,19 +10,22 @@
 datasets='
   LO_data.grids.cas7.v1.3.tgz
   LO_roms.f2012.10.07.restart.cas7.tgz
+  LO_output.forcing.cas7.f2012.10.08-f2012.10.09.tgz
 '
-#  LO_output.f2017.06.01.forcing.v1.3.tgz
-#  LO_roms.f2017.05.31.restart.v1.3.tgz
-
 bucket="ioos-sandbox-use2/public/LiveOcean"
 
-# Default behavior is to retrieve (no args)
-cd /com/$USER
+COMDIR=/com/$(basename $(dirname $PWD))
+if [ ! -d $COMDIR ]; then
+  mkdir -p $COMDIR
+fi
+
+cd $COMDIR || exit -1
 
 for file in $datasets
 do
   key=$file
-  #aws s3 cp $file s3://${bucket}/${key} --acl public-read
+
+  # Default behavior is to retrieve (no args)
   if [[ $# -eq 1 && $1 == 'store' ]] ; then
     aws s3 cp $file s3://${bucket}/${key}
   else

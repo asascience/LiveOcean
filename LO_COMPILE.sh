@@ -18,7 +18,8 @@ BUILDOPTS='-j 2'
 #                                                                       :::
 #    -noclean    Do not clean already compiled objects 
 
-export MY_ROOT_DIR=/save/$USER/LiveOcean
+#export MY_ROOT_DIR=/save/$USER/LiveOcean
+export MY_ROOT_DIR=$TOPDIR
 export MY_ROMS_SRC=${MY_ROOT_DIR}/LO_roms_source_git
 
 # Using a different makefile for Sandbox
