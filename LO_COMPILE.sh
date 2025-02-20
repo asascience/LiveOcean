@@ -40,6 +40,8 @@ TARGETMX=${TARGETMX:-'x86_64'}
 
 . modulefiles/load_modules.sh
 
+module list
+
 NETCDF=`nf-config --prefix`
 export NETCDF_INCDIR=`nf-config --includedir`
 export NETCDF_LIBDIR="${NETCDF}/lib"

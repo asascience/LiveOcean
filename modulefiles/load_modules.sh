@@ -6,6 +6,7 @@ TARGETMX=${TARGETMX:-x86_64}
 if [[ $TARGETMX == "skylake_avx512" ]]; then
 
   # don't set NO_AVX512 - make uses ifdef - default is to use
+  # outdated
   module load gcc-8.5.0-gcc-4.8.5-iakdnjp
   module load intel-oneapi-compilers-2021.3.0-gcc-8.5.0-gp3iweu
   module load intel-oneapi-mpi-2021.3.0-intel-2021.3.0-bixgqcx
@@ -25,12 +26,23 @@ elif [[ $TARGETMX == "x86_64" ]]; then
   export NO_AVX512=on
   module use -a /mnt/efs/fs1/save/environments/spack/share/spack/modules/linux-rhel8-x86_64
   module load intel-oneapi-compilers/2023.1.0-gcc-11.2.1-3a7dxu3
-  module load intel-oneapi-mpi/2021.9.0-intel-2021.9.0-egjrbfg
-  module load zlib-ng/2.1.4-intel-2021.9.0-57ptxrw
-  module load libszip/2.1.1-intel-2021.9.0-s3p3pgl
-  module load hdf5/1.14.3-intel-2021.9.0-4xskthb
-  module load netcdf-fortran/4.6.1-intel-2021.9.0-meeveoj
-  module load netcdf-c/4.9.2-intel-2021.9.0-vznmeik 
+  module load intel-oneapi-mpi/2021.12.1-intel-2021.9.0-6nra3z4
+
+  module load hdf5/1.14.3-intel-2021.9.0-jjst2zs
+  module load netcdf-fortran/4.6.1-intel-2021.9.0-cpxxwci
+  module load netcdf-c/4.9.2-intel-2021.9.0-vkckbzk
+
+  # hdf5-1.14.3-jjst2zsz
+  # netcdf-fortran-4.6.1-cpxxwcig
+  # netcdf-c-4.9.2-vkckbzk
+
+  # Older mpi version
+  #module load intel-oneapi-mpi/2021.9.0-intel-2021.9.0-egjrbfg
+  #module load zlib-ng/2.1.4-intel-2021.9.0-57ptxrw
+  #module load libszip/2.1.1-intel-2021.9.0-s3p3pgl
+  #module load hdf5/1.14.3-intel-2021.9.0-4xskthb
+  #module load netcdf-fortran/4.6.1-intel-2021.9.0-meeveoj
+  #module load netcdf-c/4.9.2-intel-2021.9.0-vznmeik 
 
   ## HACK HERE WITH SPACK - use 'module show <netcdf module above>' to get the full path
   NETCDF="/mnt/efs/fs1/save/environments/spack/opt/spack/linux-rhel8-x86_64/intel-2021.9.0/netcdf-fortran-4.6.1-meeveojv5q6onmj6kitfb2mwfqscavn6"
