@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+# set -x
 
 # This will retrieve the various fixed field datasets from S3 or other storage.
 # These filesets are too large to store on GitHhub.
@@ -8,6 +8,7 @@ set -x
 # restart file and forecast output goes in: LO_roms
 
 datasets='
+  LO_data.grids.cas6.v1.3.tgz
   LO_data.grids.cas7.v1.3.tgz
 '
 bucket="ioos-sandbox-use2/public/LiveOcean"
@@ -21,6 +22,7 @@ cd $COMDIR || exit -1
 
 for file in $datasets
 do
+  echo "Retrieving from S3: $file ..."
   key=$file
 
   # Default behavior is to retrieve (no args)
