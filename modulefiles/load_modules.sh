@@ -24,30 +24,20 @@ elif [[ $TARGETMX == "haswell" ]]; then
 elif [[ $TARGETMX == "x86_64" ]]; then
   # Use the x86_64 build targets
   export NO_AVX512=on
-  module use -a /mnt/efs/fs1/save/environments/spack/share/spack/modules/linux-rhel8-x86_64
-  module load intel-oneapi-compilers/2023.1.0-gcc-11.2.1-3a7dxu3
-  module load intel-oneapi-mpi/2021.12.1-intel-2021.9.0-6nra3z4
 
+  module use -a /mnt/efs/fs1/save/environments/spack/share/spack/modules/linux-rhel8-x86_64
+  module load intel-oneapi-compilers/2023.1.0-gcc-11.2.1-aimw7vu
+  module load intel-oneapi-mpi/2021.12.1-intel-2021.9.0-6nra3z4
   module load hdf5/1.14.3-intel-2021.9.0-jjst2zs
   module load netcdf-fortran/4.6.1-intel-2021.9.0-cpxxwci
   module load netcdf-c/4.9.2-intel-2021.9.0-vkckbzk
 
-  # hdf5-1.14.3-jjst2zsz
-  # netcdf-fortran-4.6.1-cpxxwcig
-  # netcdf-c-4.9.2-vkckbzk
+  #NETCDF="/mnt/efs/fs1/save/environments/spack/opt/spack/linux-rhel8-x86_64/intel-2021.9.0/netcdf-fortran-4.6.1-meeveojv5q6onmj6kitfb2mwfqscavn6"
+  #NETCDFC="/mnt/efs/fs1/save/environments/spack/opt/spack/linux-rhel8-x86_64/intel-2021.9.0/netcdf-c-4.9.2-vznmeikm7cp5ht2ktorgf2ehhzgvqqel"
+  # Better way
 
-  # Older mpi version
-  #module load intel-oneapi-mpi/2021.9.0-intel-2021.9.0-egjrbfg
-  #module load zlib-ng/2.1.4-intel-2021.9.0-57ptxrw
-  #module load libszip/2.1.1-intel-2021.9.0-s3p3pgl
-  #module load hdf5/1.14.3-intel-2021.9.0-4xskthb
-  #module load netcdf-fortran/4.6.1-intel-2021.9.0-meeveoj
-  #module load netcdf-c/4.9.2-intel-2021.9.0-vznmeik 
-
-  ## HACK HERE WITH SPACK - use 'module show <netcdf module above>' to get the full path
-  NETCDF="/mnt/efs/fs1/save/environments/spack/opt/spack/linux-rhel8-x86_64/intel-2021.9.0/netcdf-fortran-4.6.1-meeveojv5q6onmj6kitfb2mwfqscavn6"
-
-  NETCDFC="/mnt/efs/fs1/save/environments/spack/opt/spack/linux-rhel8-x86_64/intel-2021.9.0/netcdf-c-4.9.2-vznmeikm7cp5ht2ktorgf2ehhzgvqqel"
+  NETCDF=$(nf-config --prefix)
+  NETCDFC=$(nc-config --prefix)
 
   export LD_LIBRARY_PATH="$NETCDF/lib:$LD_LIBRARY_PATH"
   export LD_LIBRARY_PATH="$NETCDFC/lib:$LD_LIBRARY_PATH"
