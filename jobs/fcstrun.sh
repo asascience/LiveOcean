@@ -12,6 +12,8 @@ fi
 export CDATE=$1
 export COMOUT=$2
 
+export USE_PTMP=NO
+
 export HOMElo=$(dirname $PWD)
 echo "HOMElo is $HOMElo"
 
@@ -25,22 +27,18 @@ module use -a $HOMElo/modulefiles
 export I_MPI_DEBUG=0
 export I_MPI_HYDRA_DEBUG=0
 export I_MPI_JOB_STARTUP_TIMEOUT=30
-#export I_MPI_HYDRA_IFACE="ens5"
 
+#export I_MPI_HYDRA_IFACE="ens5"
 #export I_MPI_FABRICS=shm:ofi
 #export FI_PROVIDER=tcp
 #export I_MPI_FABRICS=shm
 #export I_MPI_FABRICS=verbs
 #export FI_PROVIDER=efa
-#export FI_PROVIDER=sockets
 #export FI_EFA_ENABLE_SHM_TRANSFER=1
 #export I_MPI_WAIT_MODE=1   #default is 0
 #export I_MPI_HYDRA_ENV=all
 #export I_MPI_FABRIC=shm:ofi
 #export I_MPI_HYDRA_BOOTSTRAP=ssh
-
-# -iface ens5
-# -launcher
 
 HOSTS=${HOSTS:-'localhost'}
 export NPROCS=${NPROCS:-16}    # Number of processors
@@ -56,9 +54,6 @@ YYYY=${CDATE:0:4}
 MM=${CDATE:4:2}
 DD=${CDATE:6:2}
 
-#export COMOUT=${COMROT}/LO_roms/cas7_t0_x4b/f${YYYY}.${MM}.${DD}
-#mkdir -p $COMOUT
-
 #export PTMP=/ptmp/liveocean/f${YYYY}.${MM}.${DD}
 #mkdir -p $PTMP
 
@@ -67,16 +62,9 @@ DD=${CDATE:6:2}
 #  cp -p liveocean.in $COMOUT
 #fi
 
-#if [ ! -s $COMOUT/npzd2o_Banas.in ] ; then
-#  cp -p npzd2o_Banas.in $COMOUT
-#fi
-
 if [ ! -s $COMOUT/bio_Banas.in ] ; then
   cp -p bio_Banas.in $COMOUT
 fi
-
-#cp -p ../LO_roms_source_alt/varinfo/varinfo.yaml $COMOUT
-#cp -p $HOMElo/LO_roms_source_alt/varinfo/varinfo.yaml $COMOUT
 
 # Copy the Forcing data to /ptmp also
 #FRCDIR=/com/liveocean/forcing/f${YYYY}.${MM}.${DD}
@@ -89,11 +77,8 @@ fi
 #cd $PTMP
 cd $COMOUT
 
-# -f specifies the path to the host file listing the cluster nodes; alternatively, you can use the -hosts option to specify a comma-separated list of nodes; if hosts are not specified, the local node is used.
 START=`date`
 echo "Starting run at: $START"
-#export HOSTFILE=$PWD/hosts
-#mpirun -np $NPROCS -ppn $PPN -f $HOSTFILE $EXECDIR/oceanM.lo6biom liveocean.in > lofcst.log
 result=0
 mpirun $MPIOPTS $EXECDIR/$EXEC liveocean.in > lofcst.log
 result=$?
@@ -101,7 +86,6 @@ result=$?
 if [ $result -ne 0 ]; then
   echo "ERROR: non-zero return value from mpirun: $result"
 fi
-
 
 # ROMS/TOMS: DONE
 # Check for success message
@@ -118,6 +102,7 @@ if [ $retval -ne 0 ] ; then  # No success message, return exit flag if it exists
 fi
 
 # This is done in a task, after cluster shutdown
+# TODO: needs to be refactored if doing multiple consecutive run dates
 #cp -pf $PTMP/* $COMOUT
 
 TEND=`date`
